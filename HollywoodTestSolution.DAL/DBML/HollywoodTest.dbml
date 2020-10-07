@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HollywoodTest" Class="HollywoodTestDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=HollywoodTest;Integrated Security=True" SettingsObjectName="HollywoodTestSolution.DataAccessLayer.Properties.Settings" SettingsPropertyName="HollywoodTestConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Event" Member="Events">
+    <Type Name="Event">
+      <Column Name="EventID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_TournamentID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="EventName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="EventNumber" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EventDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EventEndDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AutoClose" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Event_EventDetail" Member="EventDetails" ThisKey="EventID" OtherKey="FK_EventID" Type="EventDetail" />
+      <Association Name="Tournament_Event" Member="Tournament" ThisKey="FK_TournamentID" OtherKey="TournamentID" Type="Tournament" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventDetail" Member="EventDetails">
+    <Type Name="EventDetail">
+      <Column Name="EventDetailID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_EventID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="FK_EventDetailStatusID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EventDetailName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EventDetailNumber" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="EventDetailOdd" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="FinishingPosition" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="FirstTimer" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Event_EventDetail" Member="Event" ThisKey="FK_EventID" OtherKey="EventID" Type="Event" IsForeignKey="true" />
+      <Association Name="EventDetailStatus_EventDetail" Member="EventDetailStatus" ThisKey="FK_EventDetailStatusID" OtherKey="EventDetailStatusID" Type="EventDetailStatus" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventDetailStatus" Member="EventDetailStatus">
+    <Type Name="EventDetailStatus">
+      <Column Name="EventDetailStatusID" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventDetailStatusName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="EventDetailStatus_EventDetail" Member="EventDetails" ThisKey="EventDetailStatusID" OtherKey="FK_EventDetailStatusID" Type="EventDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tournament" Member="Tournaments">
+    <Type Name="Tournament">
+      <Column Name="TournamentID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TournamentName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Association Name="Tournament_Event" Member="Events" ThisKey="TournamentID" OtherKey="FK_TournamentID" Type="Event" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Roles" Member="Roles">
+    <Type Name="Role">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Role_UserRoleMapping" Member="UserRoleMappings" ThisKey="Id" OtherKey="RoleId" Type="UserRoleMapping" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserRoleMapping" Member="UserRoleMappings">
+    <Type Name="UserRoleMapping">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Role_UserRoleMapping" Member="Role" ThisKey="RoleId" OtherKey="Id" Type="Role" IsForeignKey="true" />
+      <Association Name="User_UserRoleMapping" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="User_UserRoleMapping" Member="UserRoleMappings" ThisKey="Id" OtherKey="UserId" Type="UserRoleMapping" />
+    </Type>
+  </Table>
+</Database>

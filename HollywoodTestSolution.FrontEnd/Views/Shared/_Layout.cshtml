@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollywood Test</title>
+    <base target="_self">
+    <meta name="description" content="Hollywood Test" />
+    <meta name="google" value="notranslate">
+    <link rel="shortcut icon" href="/Resources/images/cp_ico.png">
+    <link rel="stylesheet" href="/Resources/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link href="/Resources/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Resources/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary mb-3">
+        <div class="flex-row d-flex">
+            <button type="button" class="navbar-toggler mr-2 " data-toggle="offcanvas" title="Toggle responsive left sidebar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#" title="">Hollywood Test</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="collapsingNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Account/Logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid" id="main">
+        @RenderBody()
+    </div>
+
+
+
+
+
+    <script>
+        // sandbox disable popups
+        if (window.self !== window.top && window.name != "view1") {
+            ;
+            window.alert = function () {/*disable alert*/ };
+            window.confirm = function () {/*disable confirm*/ };
+            window.prompt = function () {/*disable prompt*/ };
+            window.open = function () {/*disable open*/ };
+        }
+
+        // prevent href=# click jump
+        document.addEventListener("DOMContentLoaded", function () {
+            var links = document.getElementsByTagName("A");
+            for (var i = 0; i < links.length; i++) {
+                if (links[i].href.indexOf('#') != -1) {
+                    links[i].addEventListener("click", function (e) {
+                        console.debug("prevent href=# click");
+                        if (this.hash) {
+                            if (this.hash == "#") {
+                                e.preventDefault();
+                                return false;
+                            }
+                            else {
+                                /* this breaks routing */
+                                var el = document.getElementById(this.hash.replace(/#/, ""));
+                                if (el) {
+                                    el.scrollIntoView(true);
+                                }
+
+                            }
+                        }
+                        return false;
+                    })
+                }
+            }
+        }, false);</script>
+
+    <!--scripts loaded here-->
+    <script src="~/Resources/angularjs/angular.min.js"></script>
+    <script src="~/Resources/Site.js"></script>
+    <script src="~/Resources/app.js"></script>
+    <script src="/Resources/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/Resources/DataServices.js"></script>
+    <script src="~/Resources/Helpers.js"></script>
+    <script src="~/Resources/alertify/alertify.min.js"></script>
+    <link href="~/Resources/alertify/css/alertify.min.css" rel="stylesheet" />
+    <link href="~/Resources /alertify/css/themes/default.min.css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="~/Resources/waitme/waitMe.css">
+    <script src="~/Resources/waitme/waitMe.min.js"></script>
+    <script src="/Resources/popper/1.14.7/umd/popper.min.js"></script>
+    <script src="/Resources/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+
+    <script>
+        $(document).ready(function () {
+
+            $('[data-toggle=offcanvas]').click(function () {
+                $('.row-offcanvas').toggleClass('active');
+            });
+
+        });
+    </script>
+
+</body>
+</html>

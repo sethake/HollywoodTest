@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.125, 8.5" name="HollywoodTest">
+  <DataContextMoniker Name="/HollywoodTestDataContext" />
+  <nestedChildShapes>
+    <classShape Id="fee74314-d0e1-4f54-832c-e9bfb796df48" absoluteBounds="3.875, 0.5, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/HollywoodTestDataContext/Event" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ad842a02-c584-4bfa-bf7f-91e5041232d9" absoluteBounds="3.89, 0.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e0ee0000-c1a7-443a-bc54-22fe02ff6075" absoluteBounds="6.625, 0.5, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/HollywoodTestDataContext/EventDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e5937bc3-96c5-4f19-a0e6-bf145fa7c7c1" absoluteBounds="6.64, 0.96, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="28d2e9e7-6d75-45d7-a709-8c159bcc21cc" absoluteBounds="4, 3, 2, 1.1939925130208327">
+      <DataClassMoniker Name="/HollywoodTestDataContext/EventDetailStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="95d6b3a6-26e2-49bf-959d-f9b743ffa7d1" absoluteBounds="4.0150000000000006, 3.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8d56b20e-e400-44c0-ab61-d3aa8fdf63c3" absoluteBounds="1.125, 1, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/HollywoodTestDataContext/Tournament" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c97f3ae9-b7f4-42ae-b812-8eb2fa375a1d" absoluteBounds="1.1400000000000001, 1.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.875 : 1.57774983723958); (6.625 : 1.57774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/HollywoodTestDataContext/Event/Event_EventDetail" />
+      <nodes>
+        <classShapeMoniker Id="fee74314-d0e1-4f54-832c-e9bfb796df48" />
+        <classShapeMoniker Id="e0ee0000-c1a7-443a-bc54-22fe02ff6075" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6 : 3); (6.625 : 2.84780110677083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/HollywoodTestDataContext/EventDetailStatus/EventDetailStatus_EventDetail" />
+      <nodes>
+        <classShapeMoniker Id="28d2e9e7-6d75-45d7-a709-8c159bcc21cc" />
+        <classShapeMoniker Id="e0ee0000-c1a7-443a-bc54-22fe02ff6075" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.125 : 1.59699625651042); (3.875 : 1.59699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/HollywoodTestDataContext/Tournament/Tournament_Event" />
+      <nodes>
+        <classShapeMoniker Id="8d56b20e-e400-44c0-ab61-d3aa8fdf63c3" />
+        <classShapeMoniker Id="fee74314-d0e1-4f54-832c-e9bfb796df48" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="c4a4391b-a13c-41b2-a18d-da2a6c4048b5" absoluteBounds="6.125, 3.75, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/HollywoodTestDataContext/Role" />
+      <nestedChildShapes>
+        <elementListCompartment Id="af7a09fb-35c8-49a0-bad9-dd6b24fade27" absoluteBounds="6.1400000000000006, 4.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="700093eb-69a9-44bc-9bd9-2a2c9b5e168c" absoluteBounds="8.875, 3.625, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/HollywoodTestDataContext/UserRoleMapping" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dd8758ca-ad7a-4d57-acf8-e530c2716d78" absoluteBounds="8.89, 4.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9e23ed37-00f7-4918-9c0d-1b47d336ff5a" absoluteBounds="7, 5.625, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/HollywoodTestDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9876b581-d4f7-4d89-8462-b980b31b040c" absoluteBounds="7.0150000000000006, 6.0850000000000009, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.125 : 4.34699625651042); (8.875 : 4.34699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/HollywoodTestDataContext/Role/Role_UserRoleMapping" />
+      <nodes>
+        <classShapeMoniker Id="c4a4391b-a13c-41b2-a18d-da2a6c4048b5" />
+        <classShapeMoniker Id="700093eb-69a9-44bc-9bd9-2a2c9b5e168c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(9 : 6.31814697265625); (9.9375005 : 6.31814697265625); (9.9375005 : 5.0112939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/HollywoodTestDataContext/User/User_UserRoleMapping" />
+      <nodes>
+        <classShapeMoniker Id="9e23ed37-00f7-4918-9c0d-1b47d336ff5a" />
+        <classShapeMoniker Id="700093eb-69a9-44bc-9bd9-2a2c9b5e168c" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

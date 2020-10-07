@@ -1,0 +1,226 @@
+﻿<div ng-app="HollywoodTest" ng-controller="main" class="row row-offcanvas row-offcanvas-left">
+
+
+    <div class="col main pt-5 mt-3">
+        <h1 class="display-4 d-none d-sm-block">
+            Hollywood Test Sethake
+        </h1>
+        <p class="lead d-none d-sm-block">Click one of the options below</p>
+
+
+        <div class="row mb-3">
+
+            <div class="col-xl-3 col-sm-6 py-2">
+                <div style="cursor:pointer" ng-click="LaunchAddNewTournamentDialog()" class="card bg-success text-white h-100">
+                    <div class="card-body bg-success">
+                        <div class="rotate">
+                            <i class="fa fa-book fa-4x"></i>
+                        </div>
+                        <h6 class="text-uppercase">Tournaments</h6>
+                        <h1 class="display-4">Add New</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 py-2">
+                <div style="cursor:pointer" ng-click="LaunchViewTournaments()" class="card text-white bg-danger h-100">
+                    <div class="card-body bg-danger">
+                        <div class="rotate">
+                            <i class="fa fa-list fa-4x"></i>
+                        </div>
+                        <h6 class="text-uppercase">Tournaments</h6>
+                        <h1 class="display-4">View/Edit</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 py-2">
+                <div style="cursor:pointer" ng-click="LaunchAddNewEventDialog()" class="card text-white bg-info h-100">
+                    <div class="card-body bg-info">
+                        <div class="rotate">
+                            <i class="fa fa-calendar fa-4x"></i>
+                        </div>
+                        <h6 class="text-uppercase">Events</h6>
+                        <h1 class="display-4">Add New</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 py-2">
+                <div style="cursor:pointer" ng-click="LaunchViewEvents()" class="card text-white bg-warning h-100">
+                    <div class="card-body">
+                        <div class="rotate">
+                            <i class="fa fa-binoculars fa-4x"></i>
+                        </div>
+                        <h6 class="text-uppercase">Events</h6>
+                        <h1 class="display-4">View/Edit</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="TournamentModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form ng-if="TournamentaddEditMode == true">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Add New Tournament
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label  class="control-label mb-1">Tournament Name</label>
+                                        <input type="text" class="form-control" required="" ng-model="NewTournament.TournamentName" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button ng-show="NewTournament.TournamentID ==0" type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                            <button ng-show="NewTournament.TournamentID >0" type="button" ng-click="CancelTournamentEditMode()" class="btn btn-danger pull-left">Cancel</button>
+                            <button type="submit" ng-click="AddNewTournament($event)" class="btn btn-success pull-right">Save</button>
+                        </div>
+                    </div>
+                </form>
+                <div ng-if="TournamentaddEditMode != true" class="table-responsive">
+                    <input type="text" ng-model="SearchTournament" placeholder="search tournament" class="form-control" />
+                    <table class="table table-striped table-bordered">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Tournament Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tournament in Tournaments|filter:{TournamentName:SearchTournament}">
+                                <td ng-bind="tournament.TournamentName"></td>
+                                <td>
+                                    <button ng-click="EditTournament(tournament)" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></button>
+                                    <button ng-click="DeleteTournament(tournament)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <hr />
+                    <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
+                    <br />
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="EventModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <form ng-if="EventaddEditMode == true">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Add New Event
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-group">
+                                                <label class="control-label mb-1">Tournament</label>
+                                                <select ng-options="tournament.TournamentID as tournament.TournamentName for tournament in Tournaments"  class="form-control" ng-model="NewEvent.FK_TournamentID" required="">
+                                                    <option value="">Select Tournament</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="control-label mb-1">Event Name</label>
+                                                <input type="text" class="form-control" required="" ng-model="NewEvent.EventName" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="control-label mb-1">Event Number</label>
+                                                <input type="number" class="form-control" required="" ng-model="NewEvent.EventNumber" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="control-label mb-1">Event Datetime</label>
+                                                <input id="EventDateTime" type="datetime-local" class="form-control" required="" ng-model="NewEvent.EventDateTime" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="control-label mb-1">Event End Datetime</label>
+                                                <input id="EventEndDateTime" type="datetime-local" class="form-control" required="" ng-model="NewEvent.EventEndDateTime" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="col-8">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Auto Close</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <input type="checkbox" class="" required="" ng-model="NewEvent.AutoClose" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button ng-show="NewEvent.EventID ==0" type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                            <button ng-show="NewEvent.EventID >0" type="button" ng-click="CancelEventEditMode()" class="btn btn-danger pull-left">Cancel</button>
+                            <button type="submit" ng-click="AddNewEvent($event)" class="btn btn-success pull-right">Save</button>
+                        </div>
+                    </div>
+                </form>
+                <div ng-if="EventaddEditMode != true" class="table-responsive">
+                    <input type="text" ng-model="SearchEvent" placeholder="search event" class="form-control" />
+                    <table class="table table-striped table-bordered">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Tournament</th>
+                                <th>Event Number</th>
+                                <th>Event Date</th>
+                                <th>Event End Date</th>
+                                <th>Auto Close</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="event in Events|filter:SearchEvent">
+                                <td ng-bind="event.EventName"></td>
+                                <td ng-bind="event.Tournament"></td>
+                                <td ng-bind="event.EventNumber"></td>
+                                <td ng-bind="event.EventDateTime"></td>
+                                <td ng-bind="event.EventEndDateTime"></td>
+                                <td ng-bind="event.AutoClose"></td>
+                                <td>
+                                    <button ng-click="EditEvent(event)" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></button>
+                                    <button ng-click="DeleteEvent(event)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <hr />
+                    <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
+                    <br />
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

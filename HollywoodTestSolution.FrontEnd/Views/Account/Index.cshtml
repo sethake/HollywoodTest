@@ -1,0 +1,34 @@
+﻿@{
+    Layout = null;
+}
+
+
+<link rel="stylesheet" href="/Resources/bootstrap/4.3.1/css/bootstrap.min.css" id="bootstrap-css" />
+<script src="/Resources/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="/Resources/jquery/3.3.1/jquery.min.js"></script>
+<link href="~/Resources/Account.css" rel="stylesheet" />
+<div class="wrapper fadeInDown">
+    <div ng-app="HollywoodTest" ng-controller="auth" id="formContent">
+
+        <div class="fadeIn first">
+            <img src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-8/256/User-blue-icon.png" id="icon" alt="User Icon" />
+        </div>
+        <form>
+            <input ng-model="AuthRequest.Username" required type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+            <input ng-model="AuthRequest.Password" required type="password" id="password" class="fadeIn third" name="login" placeholder="password">
+            <input ng-click="Authorise($event)" type="submit"  value="Log In">
+        </form>
+    </div>
+</div>
+<script src="~/Resources/angularjs/angular.min.js"></script>
+<script src="~/Resources/Site.js"></script>
+<script src="~/Resources/AuthController.js"></script>
+
+<script src="~/Resources/DataServices.js"></script>
+<script src="~/Resources/Helpers.js"></script>
+<script src="~/Resources/alertify/alertify.min.js"></script>
+<link href="~/Resources/alertify/css/alertify.min.css" rel="stylesheet" />
+<link href="~/Resources /alertify/css/themes/default.min.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="~/Resources/waitme/waitMe.css">
+<script src="~/Resources/waitme/waitMe.min.js"></script>
+
