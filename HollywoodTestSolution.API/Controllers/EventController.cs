@@ -40,9 +40,9 @@ namespace HollywoodTestSolution.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, $"The Event has been Deleted Succesfully");
         }
         [HttpGet]
-        public List<EventResponse> GetEvents()
+        public List<EventResponse> GetEvents(int tournamentId)
         {
-            return DependencyKernel.Get<IEventService>().GetEvents();
+            return DependencyKernel.Get<IEventService>().GetEvents(tournamentId);
         }
     }
 }

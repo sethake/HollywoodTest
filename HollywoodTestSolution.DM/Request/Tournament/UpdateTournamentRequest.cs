@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HollywoodTestSolution.DM.Request.Tournament
 {
-   public class UpdateTournamentRequest
+   public class UpdateTournamentRequest:AddTournamentRequest
     {
         public long TournamentID { get; set; }
-        public string TournamentName { get; set; }
+       
     }
 }

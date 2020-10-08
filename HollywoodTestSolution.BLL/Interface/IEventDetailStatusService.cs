@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HollywoodTestSolution.DM.Request.EventDetailStatus;
+using HollywoodTestSolution.DM.Response.EventDetailStatus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,10 @@ namespace HollywoodTestSolution.BLL.Interface
 {
    public interface IEventDetailStatusService
     {
+        long AddEventDetailStatus(AddEventDetailStatusRequest model);
+        void UpdateEventDetailStatus(UpdateEventDetailStatusRequest model);
+        void DeleteEventDetailStatus(long EventDetailStatusId);
+        List<EventDetailStatusResponse> GetEventDetailStatuses();
+        
     }
 }

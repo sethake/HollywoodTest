@@ -41,9 +41,13 @@ namespace HollywoodTestSolution.BLL.Service
             if(model.EventIDs.Count > 1)
                 DependencyKernel.Get<IEvent>().Delete(model.EventIDs);
         }
-        public List<EventResponse> GetEvents()
+        public List<EventResponse> GetEvents(int tournamentId)
         {
-            var events = DependencyKernel.Get<IEvent>().GetEventsResponse();
+            List<EventResponse> events = new List<EventResponse>();
+            if(tournamentId >0)
+              events = DependencyKernel.Get<IEvent>().GetEventsResponse(tournamentId);
+            else
+                events = DependencyKernel.Get<IEvent>().GetEventsResponse();
             return events;
         }
     }

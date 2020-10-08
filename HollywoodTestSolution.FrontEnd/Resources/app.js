@@ -127,9 +127,11 @@ hollywoodTest.controller("main", function ($scope) {
             });
         }
     };
-    $scope.GetEvents = function (OnComplete) {
+    $scope.GetEvents = function (OnComplete, tournamentId) {
+        if (tournamentId == null || tournamentId === undefined)
+            tournamentId = 0;
         ShowBusyIndicator();
-        Post("/Home/GetEvents", null, function (error) {
+        Post("/Home/GetEvents?tournamentId=" + tournamentId, null, function (error) {
             HideBusyIndicator();
             ShowMessage(error, "error");
         }, function (apiResponse) {
@@ -204,6 +206,217 @@ hollywoodTest.controller("main", function ($scope) {
             $scope.$digest();
         });
     };
-
+   //******************Event Detail
+    $scope.AddNewEventDetail = function ($event) {
+        var $form = $event.currentTarget.form;
+        if (!$form.checkValidity || $form.checkValidity()) {
+            $event.preventDefault();
+            ShowBusyIndicator();
+            var requestUrl = "/Home/AddEventDetail";
+            if ($scope.NewEventDetail.EventDetailID > 0)
+                requestUrl = "/Home/UpdateEventDetail";
+            Post(requestUrl, $scope.NewEventDetail, function (error) {
+                HideBusyIndicator();
+                ShowMessage(error, "error");
+            }, function (apiResponse) {
+                HideBusyIndicator();
+                if (apiResponse.HttpResponseCode == 200) {
+                    ShowMessage(apiResponse.ResponseMessage, "success", null, null);
+                    if (requestUrl == "/Home/UpdateEventDetail") {
+                        $scope.CancelEventDetailEditMode();
+                        $scope.GetEventDetails();
+                    }
+                    else {
+                        $scope.NewEventDetail = { EventDetailID: 0 };
+                        $("#EventDetailModal").modal("hide");
+                    }
+                }
+                else {
+                    ShowMessage(apiResponse.ResponseMessage, "error");
+                }
+            });
+        }
+    };
+    $scope.GetEventDetails = function (OnComplete, eventId) {
+        if (eventId === null || eventId === undefined)
+            eventId = 0;
+        ShowBusyIndicator();
+        Post("/Home/GetEventDetails?eventId=" + eventId, null, function (error) {
+            HideBusyIndicator();
+            ShowMessage(error, "error");
+        }, function (apiResponse) {
+            HideBusyIndicator();
+            if (apiResponse.HttpResponseCode == 200) {
+                if (OnComplete) { OnComplete(JSON.parse(apiResponse.ResponseMessage)); }
+                else {
+                    $scope.EventDetails = JSON.parse(apiResponse.ResponseMessage);
+                    $scope.$digest();
+                }
+            }
+            else {
+                ShowMessage(apiResponse.ResponseMessage, "error");
+            }
+        });
+    };
+    $scope.DeleteEventDetail = function (EventDetail) {
+        ShowMessage("Are you sure you want to delete this EventDetail ? this cannot be undone", "confirm", function () {
+            ShowBusyIndicator();
+            Post("/Home/DeleteEventDetail?EventDetailId=" + EventDetail.EventDetailID, null, function (error) {
+                HideBusyIndicator();
+                ShowMessage(error, "error");
+            }, function (apiResponse) {
+                HideBusyIndicator();
+                if (apiResponse.HttpResponseCode == 200) {
+                    ShowMessage(apiResponse.ResponseMessage, "confirm", function () { $scope.GetEventDetails(); }, function () { $scope.GetEventDetails(); });
+                }
+                else {
+                    ShowMessage(apiResponse.ResponseMessage, "error");
+                }
+            });
+        }, null);
+    };
+    $scope.LaunchAddNewEventDetailDialog = function () {
+        $scope.NewEventDetail = { EventDetailID: 0 };
+        $scope.SearchEventDetail = "";
+        $scope.EventDetailaddEditMode = true;
+        $scope.Tournaments = [];
+        $scope.Events = [];
+        $("#EventDetailModal").modal("show");
+        $scope.GetTournaments(function (tournaments) {
+            $scope.Tournaments = tournaments;
+            $scope.GetEventDetailStatuses(function (eventDetailStatuses) {
+                $scope.EventDetailStatuses = eventDetailStatuses;
+                $scope.$digest();
+            });
+            
+        });
+    };
+   
+    $scope.CancelEventDetailEditMode = function () {
+        $scope.NewEventDetail = {};
+        $scope.SearchEventDetail = "";
+        $scope.EventDetailaddEditMode = false;
+    };
+    $scope.EditEventDetail = function (EventDetail) {
+        $scope.NewEventDetail = {};
+        Object.assign($scope.NewEventDetail, EventDetail);
+        
+        $scope.SearchEventDetail = "";
+        $scope.EventDetailaddEditMode = true;
+        $("#EventDetailModal").modal("show");
+        $scope.GetTournaments();
+        $scope.GetEventDetailStatuses(function (eventDetailStatuses) {
+            $scope.EventDetailStatuses = eventDetailStatuses;
+            $scope.GetEvents(null, $scope.NewEventDetail.FK_TournamentID);
+            $scope.$digest();
+        });
+    };
+    $scope.LaunchViewEventDetails = function () {
+        $scope.NewEventDetail = {};
+        $scope.SearchEventDetail = "";
+        $scope.EventDetailaddEditMode = false;
+        $scope.EventDetails = [];
+        $("#EventDetailModal").modal("show");
+        $scope.GetEventDetails(function (EventDetails) {
+            $scope.EventDetails = EventDetails;
+            $scope.$digest();
+        });
+    };
+    //**********************Event Detail Status
+    $scope.AddNewEventDetailStatus = function ($event) {
+        var $form = $event.currentTarget.form;
+        if (!$form.checkValidity || $form.checkValidity()) {
+            $event.preventDefault();
+            ShowBusyIndicator();
+            var requestUrl = "/Home/AddEventDetailStatus";
+            if ($scope.NewEventDetailStatus.EventDetailStatusID > 0)
+                requestUrl = "/Home/UpdateEventDetailStatus";
+            Post(requestUrl, $scope.NewEventDetailStatus, function (error) {
+                HideBusyIndicator();
+                ShowMessage(error, "error");
+            }, function (apiResponse) {
+                HideBusyIndicator();
+                if (apiResponse.HttpResponseCode == 200) {
+                    ShowMessage(apiResponse.ResponseMessage, "success", null, null);
+                    if (requestUrl == "/Home/UpdateEventDetailStatus") {
+                        $scope.CancelEventDetailStatusEditMode();
+                        $scope.GetEventDetailStatuses();
+                    }
+                    else {
+                        $scope.NewEventDetailStatus = { EventDetailStatusID: 0 };
+                        $("#EventDetailStatusModal").modal("hide");
+                    }
+                }
+                else {
+                    ShowMessage(apiResponse.ResponseMessage, "error");
+                }
+            });
+        }
+    };
+    $scope.GetEventDetailStatuses = function (OnComplete) {
+        ShowBusyIndicator();
+        Post("/Home/GetEventDetailStatuses", null, function (error) {
+            HideBusyIndicator();
+            ShowMessage(error, "error");
+        }, function (apiResponse) {
+            HideBusyIndicator();
+            if (apiResponse.HttpResponseCode == 200) {
+                if (OnComplete) { OnComplete(JSON.parse(apiResponse.ResponseMessage)); }
+                else {
+                    $scope.EventDetailStatuses = JSON.parse(apiResponse.ResponseMessage);
+                    $scope.$digest();
+                }
+            }
+            else {
+                ShowMessage(apiResponse.ResponseMessage, "error");
+            }
+        });
+    };
+    $scope.DeleteEventDetailStatus = function (EventDetailStatus) {
+        ShowMessage("Are you sure you want to delete this EventDetailStatus ? this cannot be undone", "confirm", function () {
+            ShowBusyIndicator();
+            Post("/Home/DeleteEventDetailStatus?EventDetailStatusId=" + EventDetailStatus.EventDetailStatusID, null, function (error) {
+                HideBusyIndicator();
+                ShowMessage(error, "error");
+            }, function (apiResponse) {
+                HideBusyIndicator();
+                    if (apiResponse.HttpResponseCode == 200) {
+                        ShowMessage(apiResponse.ResponseMessage, "confirm", function () { $scope.GetEventDetailStatuses(); }, function () { $scope.GetEventDetailStatuses(); });
+                }
+                else {
+                    ShowMessage(apiResponse.ResponseMessage, "error");
+                }
+            });
+        }, null);
+    };
+    $scope.LaunchAddNewEventDetailStatusDialog = function () {
+        $scope.NewEventDetailStatus = { EventDetailStatusID: 0 };
+        $scope.SearchEventDetailStatus = "";
+        $scope.EventDetailStatusaddEditMode = true;
+        $("#EventDetailStatusModal").modal("show");
+    };
+    $scope.CancelEventDetailStatusEditMode = function () {
+        $scope.NewEventDetailStatus = {};
+        $scope.SearchEventDetailStatus = "";
+        $scope.EventDetailStatusaddEditMode = false;
+    };
+    $scope.EditEventDetailStatus = function (EventDetailStatus) {
+        $scope.NewEventDetailStatus = {};
+        Object.assign($scope.NewEventDetailStatus, EventDetailStatus);
+        $scope.SearchEventDetailStatus = "";
+        $scope.EventDetailStatusaddEditMode = true;
+        $("#EventDetailStatusModal").modal("show");
+    };
+    $scope.LaunchViewEventDetailStatuses = function () {
+        $scope.NewEventDetailStatus = {};
+        $scope.SearchEventDetailStatus = "";
+        $scope.EventDetailStatusaddEditMode = false;
+        $scope.EventDetailStatuss = [];
+        $("#EventDetailStatusModal").modal("show");
+        $scope.GetEventDetailStatuses(function (EventDetailStatuses) {
+            $scope.EventDetailStatuses = EventDetailStatuses;
+            $scope.$digest();
+        });
+    };
     
 });

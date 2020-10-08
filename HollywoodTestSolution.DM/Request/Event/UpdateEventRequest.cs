@@ -6,14 +6,8 @@ using System.Threading.Tasks;
 
 namespace HollywoodTestSolution.DM.Request.Event
 {
-    public class UpdateEventRequest
+    public class UpdateEventRequest:AddEventRequest
     {
-        public long FK_TournamentID { get; set; }
         public long EventID { get; set; }
-        public string EventName { get; set; }
-        public int EventNumber { get; set; }
-        public DateTime EventDateTime { get; set; }
-        public DateTime EventEndDateTime { get; set; }
-        public bool AutoClose { get; set; }
     }
 }

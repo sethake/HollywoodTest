@@ -9,6 +9,10 @@ namespace HollywoodTestSolution.DAL.Interface
 {
    public interface IEventDetailStatus
     {
+        long Create(EventDetailStatus EventDetailStatus);
+        void Update(EventDetailStatus EventDetailStatus);
+        void Delete(long EventDetailStatusId);
         List<EventDetailStatus> GetEventDetailStatuses();
+        bool EventDetailStatusExists(string eventDetailStatusName);
     }
 }

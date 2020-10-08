@@ -43,12 +43,19 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\Authenticate\AuthRequest.cs" />
+    <Compile Include="Request\EventDetailStatus\AddEventDetailStatusRequest.cs" />
+    <Compile Include="Request\EventDetailStatus\UpdateEventDetailStatusRequest.cs" />
+    <Compile Include="Request\EventDetail\AddEventDetailRequest.cs" />
+    <Compile Include="Request\EventDetail\DeleteEventDetailRequest.cs" />
+    <Compile Include="Request\EventDetail\UpdateEventDetailRequest.cs" />
     <Compile Include="Request\Event\AddEventRequest.cs" />
     <Compile Include="Request\Event\DeleteEventRequest.cs" />
     <Compile Include="Request\Event\UpdateEventRequest.cs" />
     <Compile Include="Request\Tournament\AddTournamentRequest.cs" />
     <Compile Include="Request\Tournament\UpdateTournamentRequest.cs" />
     <Compile Include="Response\Authenticate\AuthResponse.cs" />
+    <Compile Include="Response\EventDetailStatus\EventDetailStatusResponse.cs" />
+    <Compile Include="Response\EventDetail\EventDetailResponse.cs" />
     <Compile Include="Response\Event\EventResponse.cs" />
     <Compile Include="Response\Tournament\TournamentResponse.cs" />
   </ItemGroup>

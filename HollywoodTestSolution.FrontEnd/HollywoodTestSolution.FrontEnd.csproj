@@ -192,6 +192,7 @@
     <Content Include="Resources\waitme\LICENSE.md" />
     <Content Include="Resources\waitme\README.md" />
     <Content Include="Views\Account\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\hollywoodtest - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HollywoodTestSolution.DM\HollywoodTestSolution.DM.csproj">

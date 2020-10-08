@@ -16,6 +16,7 @@ namespace HollywoodTestSolution.DAL.Interface
         void Delete(List<long> eventIds);
         List<Event> GetEvents();
         List<EventResponse> GetEventsResponse();
+        List<EventResponse> GetEventsResponse(int tournamentId);
         bool EventExists(string eventName);
     }
 }

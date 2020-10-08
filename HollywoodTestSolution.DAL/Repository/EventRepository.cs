@@ -88,6 +88,29 @@ namespace HollywoodTestSolution.DAL.Repository
                 return events;
             }
         }
+        public List<EventResponse> GetEventsResponse(int tournamentId)
+        {
+            using (HollywoodTestDataContext db = new HollywoodTestDataContext(ConfigurationManager.AppSettings["ConnectionString"]))
+            {
+                db.DeferredLoadingEnabled = false;
+                var events = (from E in db.Events
+                              join T in db.Tournaments on E.FK_TournamentID equals T.TournamentID
+                              where E.FK_TournamentID == tournamentId
+                              orderby E.FK_TournamentID
+                              select new EventResponse
+                              {
+                                  AutoClose = E.AutoClose ?? false,
+                                  EventDateTime = E.EventDateTime.Value,
+                                  EventEndDateTime = E.EventEndDateTime.Value,
+                                  EventID = E.EventID,
+                                  EventName = E.EventName,
+                                  EventNumber = E.EventNumber.Value,
+                                  FK_TournamentID = E.FK_TournamentID.Value,
+                                  Tournament = T.TournamentName
+                              }).ToList();
+                return events;
+            }
+        }
         public bool EventExists(string eventName)
         {
             bool exists = false;

@@ -13,7 +13,7 @@ namespace HollywoodTestSolution.BLL.Interface
         long AddEvent(AddEventRequest model);
         void UpdateEvent(UpdateEventRequest model);
         void DeleteEvents(DeleteEventRequest model);
-        List<EventResponse> GetEvents();
+        List<EventResponse> GetEvents(int tournamentId);
 
 
     }

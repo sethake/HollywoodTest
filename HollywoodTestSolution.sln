@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29209.62
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HollywoodTestSolution.API", "HollywoodTestSolution\HollywoodTestSolution.API.csproj", "{6EF31482-8CC9-4140-9E1C-AA707BB68762}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HollywoodTestSolution.API", "HollywoodTestSolution.API\HollywoodTestSolution.API.csproj", "{6EF31482-8CC9-4140-9E1C-AA707BB68762}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HollywoodTestSolution.DAL", "HollywoodTestSolution.DAL\HollywoodTestSolution.DAL.csproj", "{64AB65F2-2A69-4504-A528-776662C999B8}"
 EndProject
