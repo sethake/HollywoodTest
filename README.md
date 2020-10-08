@@ -9,6 +9,6 @@
 LINK TO API      : https://hollywoodtest-api.azurewebsites.net
 LINK TO FRONTEND : https://hollywoodtest.azurewebsites.net
 
-USERNAME:test
-PASSWORD:test
+USERNAME: test
+PASSWORD: test
 
